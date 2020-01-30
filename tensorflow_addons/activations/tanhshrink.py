@@ -37,4 +37,15 @@ def tanhshrink(x: types.TensorLike) -> tf.Tensor:
 
 @tf.RegisterGradient("Addons>Tanhshrink")
 def _tanhshrink_grad(op, grad):
-    return _activation_so.ops.addons_tanhshrink_grad(grad, op.inputs[0])
+    with tf.control_dependencies([grad]):
+        return _activation_so.ops.addons_tanhshrink_grad(grad, op.outputs[0])
+
+
+@tf.RegisterGradient("Addons>TanhshrinkGrad")
+def _tanhshrink_grad_grad(op, grad):
+    with tf.control_dependencies([grad]):
+        return (
+            2
+            * op.outputs[0]
+            * _activation_so.ops.addons_tanhshrink_grad(grad, op.outputs[0])
+        )
