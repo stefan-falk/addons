@@ -9,5 +9,6 @@ custom_op_library(
     srcs = [
         "cc/kernels/iou_op.cc",
         "cc/kernels/iou_op.h",
+        "cc/ops/iou_op.cc",
     ]
 )
