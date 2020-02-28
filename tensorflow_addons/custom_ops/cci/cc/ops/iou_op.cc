@@ -1,4 +1,4 @@
-/* Copyright 2019 The TensorFlow Authors. All Rights Reserved.
+/* Copyright 2020 The TensorFlow Authors. All Rights Reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ limitations under the License.
 
 namespace tensorflow {
 namespace addons {
-    REGISTER_OP("PolygonIou")
+REGISTER_OP("PolygonIou")
     .Attr("T: {float,double}")
     .Input("polygon1_tensor: T")
     .Input("polygon2_tensor: T")
     .Output("iou: T")
     .SetShapeFn(shape_inference::ScalarShape);
-}
-}
+}  // namespace addons
+}  // namespace tensorflow

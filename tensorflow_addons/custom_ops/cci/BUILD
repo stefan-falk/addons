@@ -10,5 +10,16 @@ custom_op_library(
         "cc/kernels/iou_op.cc",
         "cc/kernels/iou_op.h",
         "cc/ops/iou_op.cc",
-    ]
+    ],
+)
+
+py_library(
+    name = "iou_ops",
+    srcs = [
+        "iou_ops.py",
+    ],
+    data = [
+        "//tensorflow_addons/custom_ops/cci:_cci_ops.so",
+        "//tensorflow_addons/utils",
+    ],
 )
