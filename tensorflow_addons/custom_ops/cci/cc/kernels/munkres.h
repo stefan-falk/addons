@@ -131,7 +131,7 @@ class Munkres {
 
   static void replace_infinites(Matrix<Data> &matrix) {
     const size_t rows = matrix.rows(), columns = matrix.columns();
-    assert(rows > 0 && columns > 0);
+
     double max = matrix(0, 0);
     constexpr auto infinity = std::numeric_limits<double>::infinity();
 
