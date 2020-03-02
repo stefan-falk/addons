@@ -47,7 +47,7 @@ class PolygonIouOp : public OpKernel {
                 (polygon2_tensor.shape().dims() == 3) &&
                     polygon2_tensor.shape().dim_size(2) == 2,
                 errors::InvalidArgument("Input shapes must be [N,E,2]"));
-    Tensor* iou_tensor = NULL;
+    Tensor* iou_tensor = nullptr;
     OP_REQUIRES_OK(context, context->allocate_output(
                                 0, TensorShape({batch_size}), &iou_tensor));
     auto polygon1_t = polygon1_tensor.tensor<T, 3>();
