@@ -73,6 +73,22 @@ def test_get_config():
 
 
 @pytest.mark.usefixtures("run_with_mixed_precision_policy")
+def test_with_reduce_lr_callback():
+    x = np.random.standard_normal((10, 64))
+    y = np.random.standard_normal((10, 1))
+
+    model = tf.keras.Sequential()
+    model.add(tf.keras.layers.Dense(16, activation="relu"))
+    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Dense(1))
+    opt = SWA(tf.keras.optimizers.SGD())
+    model.compile(optimizer=opt, loss="mean_squared_error")
+    lr_reduce = tf.keras.callbacks.ReduceLROnPlateau(
+        factor=0.8, patience=2, min_delta=0.005
+    )
+    model.fit(x, y, epochs=1, callbacks=[lr_reduce])
+
+
 def test_assign_batchnorm():
     x = np.random.standard_normal((10, 64))
     y = np.random.standard_normal((10, 1))
