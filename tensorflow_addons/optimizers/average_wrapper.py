@@ -131,6 +131,12 @@ class AveragedOptimizerWrapper(tf.keras.optimizers.Optimizer, metaclass=abc.ABCM
         )
         return cls(optimizer, **config)
 
+    def __setattr__(self, key, value):
+        if key in ["lr", "learning_rate"]:
+            self._optimizer._set_hyper("learning_rate", value)
+        else:
+            super().__setattr__(key, value)
+
     @property
     def weights(self):
         return self._weights + self._optimizer.weights
@@ -139,14 +145,6 @@ class AveragedOptimizerWrapper(tf.keras.optimizers.Optimizer, metaclass=abc.ABCM
     def lr(self):
         return self._optimizer._get_hyper("learning_rate")
 
-    @lr.setter
-    def lr(self, lr):
-        self._optimizer._set_hyper("learning_rate", lr)  #
-
     @property
     def learning_rate(self):
         return self._optimizer._get_hyper("learning_rate")
-
-    @learning_rate.setter
-    def learning_rate(self, learning_rate):
-        self._optimizer._set_hyper("learning_rate", learning_rate)
