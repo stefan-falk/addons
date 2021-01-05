@@ -109,6 +109,7 @@ class SWA(AveragedOptimizerWrapper):
         if start_averaging < 0:
             raise ValueError("start_averaging must be >= 0")
 
+        self._set_hyper("learning_rate", self.lr)
         self._set_hyper("average_period", average_period)
         self._set_hyper("start_averaging", start_averaging)
 
