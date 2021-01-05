@@ -38,6 +38,7 @@ class AveragedOptimizerWrapper(tf.keras.optimizers.Optimizer, metaclass=abc.ABCM
             )
 
         self._optimizer = optimizer
+        self._hyper.update(optimizer._hyper)
         self._track_trackable(self._optimizer, "swg_optimizer")
 
     def _create_slots(self, var_list):
